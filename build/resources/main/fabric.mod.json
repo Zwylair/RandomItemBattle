@@ -5,7 +5,7 @@
 	"name": "RandomItemBattle",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Zwylair"
+		"Me!"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -19,6 +19,9 @@
 			"zwylair.randomitembattle.RandomItemBattle"
 		]
 	},
+	"mixins": [
+		"randomitembattle.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.15.7",
 		"minecraft": "~1.20.4",
