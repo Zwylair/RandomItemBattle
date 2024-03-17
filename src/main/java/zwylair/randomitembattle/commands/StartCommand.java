@@ -2,16 +2,19 @@ package zwylair.randomitembattle.commands;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
+
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
+import static net.minecraft.server.command.CommandManager.literal;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
-import static net.minecraft.server.command.CommandManager.literal;
+
 import static zwylair.randomitembattle.RandomItemBattle.*;
 import static zwylair.randomitembattle.commands.ConfigureWorld.isWorldNotConfigured;
 

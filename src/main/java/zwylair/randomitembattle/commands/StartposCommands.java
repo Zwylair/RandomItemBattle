@@ -3,12 +3,14 @@ package zwylair.randomitembattle.commands;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.Vec3d;
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
+import net.minecraft.text.Text;
+import net.minecraft.util.math.Vec3d;
+
 import static zwylair.randomitembattle.RandomItemBattle.*;
 
 
