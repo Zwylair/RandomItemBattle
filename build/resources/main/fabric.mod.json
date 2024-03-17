@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "randomitembattle",
+	"version": "1.0.0",
+	"name": "RandomItemBattle",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Zwylair"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/randomitembattle/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"zwylair.randomitembattle.RandomItemBattle"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.15.7",
+		"minecraft": "~1.20.4",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

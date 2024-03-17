@@ -1,0 +1,50 @@
+/rib startpos remove
+/rib start
+/gamemode creative
+/rib set_center_position
+/rib startpos add
+/rib set_center_position
+/rib start
+/rib items stop
+/gamemode creative
+/rib set_center_position
+/rib startpos add
+/rib start
+/gamemode creative
+/rib set_center_position
+/rib startpos add
+/rib start
+/gamemode creative
+/rib set_center_position
+/rib startpos add
+/rib start
+/gamemode survival
+/rib set_center_position
+/rib startpos add
+/rib start
+/rib set_center_position
+/rib startpos add
+/rib start
+/gamemode creative
+/rib
+/rib startpos add
+/rib set_center_position
+/rib start
+/rib set_center_position
+/rib startpos add
+/rib start
+/rib set_center_position
+/rib start
+/rib startpos add
+/rib start
+/gamemode creative
+/gamemode survival
+/rib startpos add
+/rib set_center_position
+/rib start
+/rib set_center_position
+/rib startpos add
+/rib start
+/rib startpos add
+/rib set_center_position
+/rib start
