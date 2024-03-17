@@ -1,12 +1,10 @@
 package zwylair.randomitembattle.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.command.ServerCommandSource;
-import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
@@ -17,7 +15,7 @@ import static zwylair.randomitembattle.RandomItemBattle.*;
 public class StartposCommands {
 
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("rib").then(literal("startpos").then(argument("add", IntegerArgumentType.integer())
+        dispatcher.register(literal("rib").then(literal("startpos").then(literal("add")
                 .executes(StartposCommands::addStartpos))));
 
         dispatcher.register(literal("rib").then(literal("startpos").then(literal("remove")
