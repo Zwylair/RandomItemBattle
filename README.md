@@ -37,8 +37,6 @@ All mod's commands are subcommands of `/rib` command.
 * Configure timeout: `/rib timeout <time_in_seconds>`
 * Configure game world (disables things to not interfere the game process): `/rib configure_world`
 
----
-
 ## License
 
 This project is under the [MIT license](./LICENSE).
