@@ -26,7 +26,7 @@ public class StartCommand {
                 .executes(StartCommand::startGame)));
     }
 
-    private static int posToInt(double number) {
+    public static int posToInt(double number) {
         if (number < 0) { return (int) ((int) number - 0.5); } else { return (int) number; }
     }
 
@@ -34,10 +34,7 @@ public class StartCommand {
         ServerWorld world = ctx.getSource().getWorld();
         List<ServerPlayerEntity> players = world.getPlayers();
 
-        if (isWorldNotConfigured(world)) {
-            ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "§cThis world need to be configured! Enter (/rib configure_world) to prepare the world to game"), false);
-            return 1;
-        }
+        if (isWorldNotConfigured(world)) { ConfigureWorld.configureWorld(ctx); }
         if (centerPosition == null) {
             ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "§cThe center position is not configured! Configure the center position with (/rib set_center_pos)"), false);
             return 1;
