@@ -30,9 +30,9 @@ public class StartposCommands {
 
     public static Vec3d roundPosition(Vec3d position) {
         double x = (int) position.getX();
-        if (position.getX() < 0) { x -= 0.5; } else { x += 0.5; }
+        if (position.getX() < 0) { x -= 1.5; } else { x += 0.5; }
         double z = (int) position.getZ();
-        if (position.getZ() < 0) { z -= 0.5; } else { z += 0.5; }
+        if (position.getZ() < 0) { z -= 1.5; } else { z += 0.5; }
 
         return new Vec3d(x, position.getY(), z);
     }
