@@ -13,7 +13,7 @@
 
 `RandomItemBattle` is a mod to help make the game more comfortable, where a random item is given out at a certain interval and players compete in an empty world with only bedrock blocks below the players and a 3x3 bedrock centre.
 
-`RandomItemBattle` only provides the gameplay part of the game, so an empty map with bedrock blocks must be manually created (and cleared after the game ends).
+`RandomItemBattle` only provides the gameplay part of the game, so an empty map with bedrock blocks must be manually created.
 
 ## Commands
 
