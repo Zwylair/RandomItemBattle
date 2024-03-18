@@ -39,16 +39,3 @@ jobs:
         with:
           name: Artifacts
           path: build/libs/
-      - name: "Build & test"
-        run: |
-          echo "done!"
-
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "DevBuild"
-          files: |
-            LICENSE.txt
-            *.jar
