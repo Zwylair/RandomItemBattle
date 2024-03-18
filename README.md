@@ -13,8 +13,7 @@
 
 `RandomItemBattle` is a mod to help make the game more comfortable, where a random item is given out at a certain interval and players compete in an empty world with only bedrock blocks below the players and a 3x3 bedrock centre.
 
-`RandomItemBattle` only provides the gameplay part of the game, so an empty map with bedrock blocks must be manually created.
-
+`RandomItemBattle` only provides the gameplay part of the game, but there is a `/rib create_playground` command for creating playground in your world.
 ## Commands
 
 All mod's commands are subcommands of `/rib` command.
@@ -25,17 +24,17 @@ All mod's commands are subcommands of `/rib` command.
 * Pause item giving: `/rib items stop`
 * Resume item giving: `/rib items resume`
 
-### Configuring start positions
+### Configuring positions
 
 * Add start position: `/rib startpos add`
 * Remove start position: `/rib startpos remove`
 * Remove all start positions: `/rib startpos clear`
 * Configure center position: `/rib set_center_position`
 
-### Configuring game settings
+### Configuring game
 
 * Configure timeout: `/rib timeout <time_in_seconds>`
-* Configure game world (disables things to not interfere the game process): `/rib configure_world`
+* Create playground (with auto adding startpos and centerpos): `/rib create_playground`
 
 ## License
 

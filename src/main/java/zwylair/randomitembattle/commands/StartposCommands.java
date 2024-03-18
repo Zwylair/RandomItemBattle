@@ -28,7 +28,7 @@ public class StartposCommands {
                 .executes(StartposCommands::setCenterPos)));
     }
 
-    private static Vec3d roundPosition(Vec3d position) {
+    public static Vec3d roundPosition(Vec3d position) {
         double x = (int) position.getX();
         if (position.getX() < 0) { x -= 0.5; } else { x += 0.5; }
         double z = (int) position.getZ();
