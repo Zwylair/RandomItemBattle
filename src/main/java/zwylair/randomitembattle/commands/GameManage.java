@@ -18,18 +18,22 @@ import net.minecraft.world.GameMode;
 
 import static zwylair.randomitembattle.RandomItemBattle.*;
 import static zwylair.randomitembattle.commands.ConfigureWorld.isWorldNotConfigured;
+import static zwylair.randomitembattle.utils.PosCalculator.posToCoord;
 
 
-public class StartCommand {
+public class GameManage {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
-        dispatcher.register(literal("rib").then(literal("start")
-                .executes(StartCommand::startGame)));
-    }
+        dispatcher.register(literal("rib").then(literal("game").then(literal("start")
+                .executes(GameManage::startGame))));
+        dispatcher.register(literal("rib").then(literal("game").then(literal("stop")
+                .executes(GameManage::stopGame))));
 
-    public static int posToInt(double number) {
-        if (number < 0) { return (int) ((int) number - 0.5); } else { return (int) number; }
+        dispatcher.register(literal("rib").then(literal("items").then(literal("pause")
+                .executes(GameManage::pauseItemSpawning))));
+        dispatcher.register(literal("rib").then(literal("items").then(literal("resume")
+                .executes(GameManage::resumeItemSpawning))));
     }
-
+    
     public static int startGame(CommandContext<ServerCommandSource> ctx) {
         ServerWorld world = ctx.getSource().getWorld();
         List<ServerPlayerEntity> players = world.getPlayers();
@@ -59,12 +63,12 @@ public class StartCommand {
         // executes commands, so we need some time interval before teleporting players
 
         // clean center and every startpos
-        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToInt(cPos.x) - 15, (int) cPos.y - 5, posToInt(cPos.z) - 15, posToInt(cPos.x) + 15, (int) cPos.y + 20, posToInt(cPos.z) + 15));
-        playerPositionsLeft.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToInt(pos.x) - 15, (int) pos.y - 5, posToInt(pos.z) - 15, posToInt(pos.x) + 15, (int) pos.y + 20, posToInt(pos.z) + 15)));
+        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToCoord(cPos.x) - 15, (int) cPos.y - 5, posToCoord(cPos.z) - 15, posToCoord(cPos.x) + 15, (int) cPos.y + 20, posToCoord(cPos.z) + 15));
+        playerPositionsLeft.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToCoord(pos.x) - 15, (int) pos.y - 5, posToCoord(pos.z) - 15, posToCoord(pos.x) + 15, (int) pos.y + 20, posToCoord(pos.z) + 15)));
 
         // set bedrock blocks
-        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s bedrock", posToInt(cPos.x) - 1, (int) cPos.y - 1, posToInt(cPos.z) - 1, posToInt(cPos.x) + 1, (int) cPos.y - 1, posToInt(cPos.z) + 1));
-        playerPositionsLeft.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/setblock %s %s %s bedrock", posToInt(pos.x), (int) pos.y - 1, posToInt(pos.z))));
+        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s bedrock", posToCoord(cPos.x) - 1, (int) cPos.y - 1, posToCoord(cPos.z) - 1, posToCoord(cPos.x) + 1, (int) cPos.y - 1, posToCoord(cPos.z) + 1));
+        playerPositionsLeft.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/setblock %s %s %s bedrock", posToCoord(pos.x), (int) pos.y - 1, posToCoord(pos.z))));
 
         commandManager.executeWithPrefix(commandSource, "/kill @e[type=!player]");
 
@@ -88,6 +92,38 @@ public class StartCommand {
         itemSpawningStatus = true;
         resetWaitedTicks = true;
         isGameStarted = true;
+        return 0;
+    }
+
+    public static int stopGame(CommandContext<ServerCommandSource> ctx) {
+        if (!isGameStarted) {
+            ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "§cThe game is not started!"), false);
+            return 1;
+        }
+
+        ctx.getSource().getWorld().getPlayers().forEach((player) -> {
+            player.changeGameMode(GameMode.CREATIVE);
+            player.getHungerManager().setFoodLevel(20);
+            player.heal(20);
+        });
+
+        itemSpawningStatus = false;
+        resetWaitedTicks = true;
+        isGameStarted = false;
+        return 0;
+    }
+
+    public static int pauseItemSpawning(CommandContext<ServerCommandSource> ctx) {
+        itemSpawningStatus = false;
+
+        ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Item spawning was stopped"), false);
+        return 0;
+    }
+
+    public static int resumeItemSpawning(CommandContext<ServerCommandSource> ctx) {
+        itemSpawningStatus = true;
+
+        ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Item spawning was resumed"), false);
         return 0;
     }
 }

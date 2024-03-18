@@ -20,8 +20,9 @@ All mod's commands are subcommands of `/rib` command.
 
 ### Managing game
 
-* Start game: `/rib start`
-* Pause item giving: `/rib items stop`
+* Start game: `/rib game start`
+* Stop game: `/rib game stop`
+* Pause item giving: `/rib items pause`
 * Resume item giving: `/rib items resume`
 
 ### Configuring positions

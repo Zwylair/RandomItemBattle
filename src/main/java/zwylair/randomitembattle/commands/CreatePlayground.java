@@ -12,9 +12,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 
 import static zwylair.randomitembattle.RandomItemBattle.*;
-import static zwylair.randomitembattle.commands.StartCommand.posToInt;
-import static zwylair.randomitembattle.commands.StartposCommands.roundPosition;
-
+import static zwylair.randomitembattle.utils.PosCalculator.posToCoord;
+import static zwylair.randomitembattle.utils.PosCalculator.roundPosition;
 
 public class CreatePlayground {
     public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
@@ -37,12 +36,12 @@ public class CreatePlayground {
         playerPositions.add(new Vec3d(cPos.x, cPos.y + 8, cPos.z - 12));
 
         // clean center and every startpos
-        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToInt(cPos.x) - 15, (int) cPos.y - 5, posToInt(cPos.z) - 15, posToInt(cPos.x) + 15, (int) cPos.y + 20, posToInt(cPos.z) + 15));
-        playerPositions.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToInt(pos.x) - 15, (int) pos.y - 5, posToInt(pos.z) - 15, posToInt(pos.x) + 15, (int) pos.y + 20, posToInt(pos.z) + 15)));
+        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToCoord(cPos.x) - 15, (int) cPos.y - 5, posToCoord(cPos.z) - 15, posToCoord(cPos.x) + 15, (int) cPos.y + 20, posToCoord(cPos.z) + 15));
+        playerPositions.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToCoord(pos.x) - 15, (int) pos.y - 5, posToCoord(pos.z) - 15, posToCoord(pos.x) + 15, (int) pos.y + 20, posToCoord(pos.z) + 15)));
 
         // set bedrock blocks
-        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s bedrock", posToInt(cPos.x) - 1, (int) cPos.y - 1, posToInt(cPos.z) - 1, posToInt(cPos.x) + 1, (int) cPos.y - 1, posToInt(cPos.z) + 1));
-        playerPositions.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/setblock %s %s %s bedrock", posToInt(pos.x), (int) pos.y - 1, posToInt(pos.z))));
+        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s bedrock", posToCoord(cPos.x) - 1, (int) cPos.y - 1, posToCoord(cPos.z) - 1, posToCoord(cPos.x) + 1, (int) cPos.y - 1, posToCoord(cPos.z) + 1));
+        playerPositions.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/setblock %s %s %s bedrock", posToCoord(pos.x), (int) pos.y - 1, posToCoord(pos.z))));
 
         ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Playground was created"), false);
         return 0;
