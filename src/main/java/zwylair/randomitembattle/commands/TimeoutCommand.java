@@ -23,7 +23,6 @@ public class TimeoutCommand {
         final int timeoutInSeconds = IntegerArgumentType.getInteger(ctx, "seconds");
         TIMEOUT_IN_TICKS = timeoutInSeconds * 20;
 
-        LOGGER.info(String.format("Timeout set to %s (in seconds), to %s (in ticks)", timeoutInSeconds, TIMEOUT_IN_TICKS));
         ctx.getSource().sendFeedback(() -> Text.literal(String.format(chatModPrefix + "Timeout set to %s", timeoutInSeconds)), false);
         return 0;
     }

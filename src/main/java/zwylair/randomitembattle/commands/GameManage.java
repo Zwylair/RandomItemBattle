@@ -116,7 +116,7 @@ public class GameManage {
     public static int pauseItemSpawning(CommandContext<ServerCommandSource> ctx) {
         itemSpawningStatus = false;
 
-        ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Item spawning was stopped"), false);
+        ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Item spawning was paused"), false);
         return 0;
     }
 

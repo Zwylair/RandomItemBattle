@@ -13,10 +13,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
-//import net.minecraft.sound.SoundCategory;
-//import net.minecraft.sound.SoundEvents;
 
 import static zwylair.randomitembattle.RandomItemBattle.*;
 
@@ -38,10 +37,12 @@ public class AfterRespawn {
         assert server != null;
         CommandManager commandManager = server.getCommandManager();
         ServerCommandSource commandSource = server.getCommandSource();
+        Vec3d centerPos = centerPosition;
         World world = newPlayer.getWorld();
 
+        centerPos.add(0, 7, 0);
         newPlayer.changeGameMode(GameMode.SPECTATOR);
-        newPlayer.teleport(centerPosition.x, centerPosition.y + 7, centerPosition.z);
+        newPlayer.teleport(centerPos.x, centerPos.y, centerPos.z);
 
         serverPlayers.forEach((sPlayer) -> {
             if (sPlayer.interactionManager.getGameMode() == GameMode.SURVIVAL) { livingPlayers.add(sPlayer); }
@@ -56,13 +57,13 @@ public class AfterRespawn {
                 commandManager.executeWithPrefix(commandSource, gameEndTitleCommand.formatted(winnerPlayer.getName().getString()));
             }));
 
-            world.playSound(null, BlockPos.ofFloored(centerPosition), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1f, 1f);
+            world.playSound(null, BlockPos.ofFloored(centerPos), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1f, 1f);
 
             resetWaitedTicks = true;
             itemSpawningStatus = false;
             isGameStarted = false;
         } else {
-            world.playSound(null, BlockPos.ofFloored(centerPosition), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1f, 1f);
+            world.playSound(null, BlockPos.ofFloored(centerPos), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1f, 1f);
         }
     }
 }
