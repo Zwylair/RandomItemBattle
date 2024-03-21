@@ -3,7 +3,7 @@
 	"id": "randomitembattle",
 	"version": "${version}",
 	"name": "RandomItemBattle",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "The RandomItemBattle mod adds the giving random items to players who compete in an empty world on only just a bedrock!",
 	"authors": [
 		"Zwylair"
 	],
