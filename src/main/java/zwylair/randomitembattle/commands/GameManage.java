@@ -48,8 +48,11 @@ public class GameManage {
             return 1;
         }
         if (world.getPlayers().size() > playerPositions.size()) {
-            ctx.getSource().sendFeedback(() -> Text.literal(String.format(chatModPrefix + "§cThere are only %d positions for %d players!", playerPositions.size(), players.size())), false);
+            ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "§cThere are only %d positions for %d players!".formatted(playerPositions.size(), players.size())), false);
             return 1;
+        }
+        if (centerPosition.y < -40 || centerPosition.y > 290) {
+            ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + warningChatPrefix + "The Y coordinate is too close to the world boundaries. This may cause some problems with clearing the playground. Recommended Y coordinate for creating playground = 64."), false);
         }
 
         // shortcuts
@@ -63,12 +66,12 @@ public class GameManage {
         // executes commands, so we need some time interval before teleporting players
 
         // clean center and every startpos
-        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToCoord(cPos.x) - 15, (int) cPos.y - 5, posToCoord(cPos.z) - 15, posToCoord(cPos.x) + 15, (int) cPos.y + 20, posToCoord(cPos.z) + 15));
-        playerPositionsLeft.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s air", posToCoord(pos.x) - 15, (int) pos.y - 5, posToCoord(pos.z) - 15, posToCoord(pos.x) + 15, (int) pos.y + 20, posToCoord(pos.z) + 15)));
+        commandManager.executeWithPrefix(commandSource, "/fill %s %s %s %s %s %s air".formatted(posToCoord(cPos.x) - 15, (int) cPos.y - 5, posToCoord(cPos.z) - 15, posToCoord(cPos.x) + 15, (int) cPos.y + 20, posToCoord(cPos.z) + 15));
+        playerPositions.forEach((pos) -> commandManager.executeWithPrefix(commandSource, "/fill %s %s %s %s %s %s air".formatted(posToCoord(pos.x) - 15, (int) pos.y - 5, posToCoord(pos.z) - 15, posToCoord(pos.x) + 15, (int) pos.y + 20, posToCoord(pos.z) + 15)));
 
         // set bedrock blocks
-        commandManager.executeWithPrefix(commandSource, String.format("/fill %s %s %s %s %s %s bedrock", posToCoord(cPos.x) - 1, (int) cPos.y - 1, posToCoord(cPos.z) - 1, posToCoord(cPos.x) + 1, (int) cPos.y - 1, posToCoord(cPos.z) + 1));
-        playerPositionsLeft.forEach((pos) -> commandManager.executeWithPrefix(commandSource, String.format("/setblock %s %s %s bedrock", posToCoord(pos.x), (int) pos.y - 1, posToCoord(pos.z))));
+        commandManager.executeWithPrefix(commandSource, "/fill %s %s %s %s %s %s bedrock".formatted(posToCoord(cPos.x) - 1, (int) cPos.y - 1, posToCoord(cPos.z) - 1, posToCoord(cPos.x) + 1, (int) cPos.y - 1, posToCoord(cPos.z) + 1));
+        playerPositions.forEach((pos) -> commandManager.executeWithPrefix(commandSource, "/setblock %s %s %s bedrock".formatted(posToCoord(pos.x), (int) pos.y - 1, posToCoord(pos.z))));
 
         commandManager.executeWithPrefix(commandSource, "/kill @e[type=!player]");
 

@@ -29,16 +29,14 @@ public class StartposCommands {
                 .executes(StartposCommands::setCenterPos)));
     }
 
-
-
     public static int addStartpos(CommandContext<ServerCommandSource> ctx) {
         PlayerEntity player = ctx.getSource().getPlayer();
-        if (player == null) { return 1; }  // executor was not a player
+        assert player != null;  // executor was not a player
         Vec3d spawnPosition = roundPosition(player.getPos());
 
         if (playerPositions.contains(spawnPosition)) {
             ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "§cThis position already added"), false);
-            return 0;
+            return 1;
         }
         playerPositions.add(spawnPosition);
 
@@ -49,18 +47,18 @@ public class StartposCommands {
         int finalX = x;
         int finalZ = z;
 
-        ctx.getSource().sendFeedback(() -> Text.literal(String.format(chatModPrefix + "Position [x:%d, y:%d, z:%d] was added", finalX, (int) spawnPosition.y, finalZ)), false);
+        ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Position [x:%d, y:%d, z:%d] was added".formatted(finalX, (int) spawnPosition.y, finalZ)), false);
         return 0;
     }
 
     public static int removeStartpos(CommandContext<ServerCommandSource> ctx) {
         PlayerEntity player = ctx.getSource().getPlayer();
-        if (player == null) { return 1; }  // executor was not a player
+        assert player != null;  // executor was not a player
         Vec3d spawnPosition = roundPosition(player.getPos());
 
         if (!playerPositions.contains(spawnPosition)) {
-            ctx.getSource().sendFeedback(() -> Text.literal(String.format(chatModPrefix + "§cPosition [x:%d, y:%d, z:%d] is not in position list", (int) spawnPosition.x, (int) spawnPosition.y, (int) spawnPosition.z)), false);
-            return 0;
+            ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "§cPosition [x:%d, y:%d, z:%d] is not in position list".formatted((int) spawnPosition.x, (int) spawnPosition.y, (int) spawnPosition.z)), false);
+            return 1;
         }
         playerPositions.remove(spawnPosition);
 
@@ -71,7 +69,7 @@ public class StartposCommands {
         int finalX = x;
         int finalZ = z;
 
-        ctx.getSource().sendFeedback(() -> Text.literal(String.format(chatModPrefix + "Position [x:%d, y:%d, z:%d] was removed", finalX, (int) spawnPosition.y, finalZ)), false);
+        ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Position [x:%d, y:%d, z:%d] was removed".formatted(finalX, (int) spawnPosition.y, finalZ)), false);
         return 0;
     }
 
@@ -84,7 +82,7 @@ public class StartposCommands {
 
     public static int setCenterPos(CommandContext<ServerCommandSource> ctx) {
         PlayerEntity player = ctx.getSource().getPlayer();
-        if (player == null) { return 1; }  // executor was not a player
+        assert player != null;  // executor was not a player
         centerPosition = roundPosition(player.getPos());
 
         ctx.getSource().sendFeedback(() -> Text.literal(chatModPrefix + "Center position was set"), false);

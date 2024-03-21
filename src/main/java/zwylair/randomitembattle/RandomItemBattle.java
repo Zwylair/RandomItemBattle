@@ -27,18 +27,18 @@ public class RandomItemBattle implements ModInitializer {
     public static boolean isGameStarted = false;
     public static boolean resetWaitedTicks = false;
     public static final String chatModPrefix = "§6[§eRandomItemBattle§6]§r ";
+	public static final String warningChatPrefix = "§5[§dWarning§5]§r ";
     public static final List<Item> blocksAsItems = new ArrayList<>(Registries.BLOCK.stream()
 			.map(Block::asItem)
 			.collect(Collectors.toList()));
     public static final List<Item> pickableItems = Stream.concat(blocksAsItems.stream(), Registries.ITEM.stream()).toList();
-    public static final List<Vec3d> playerPositions = new ArrayList<>();
+    public static List<Vec3d> playerPositions = new ArrayList<>();
     public static Vec3d centerPosition;
 
 	@Override
 	public void onInitialize() {
 		Tick.register();
 		AfterRespawn.register();
-
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> TimeoutCommand.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> StartposCommands.register(dispatcher));
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> GameManage.register(dispatcher));

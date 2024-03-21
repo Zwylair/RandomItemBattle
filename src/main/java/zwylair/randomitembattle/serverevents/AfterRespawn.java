@@ -2,7 +2,6 @@ package zwylair.randomitembattle.serverevents;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 
@@ -13,7 +12,6 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
 
@@ -32,17 +30,15 @@ public class AfterRespawn {
 
         String gameEndTitleCommand = "/title @a title [\"\",{\"text\":\"%s\",\"bold\":true,\"color\":\"gold\"},{\"text\":\" win!\",\"bold\":true,\"color\":\"yellow\"}]";
         List<ServerPlayerEntity> livingPlayers = new ArrayList<>();
-        List<ServerPlayerEntity> serverPlayers = Objects.requireNonNull(oldPlayer.getServer()).getPlayerManager().getPlayerList();
         MinecraftServer server = newPlayer.getServer();
         assert server != null;
+        List<ServerPlayerEntity> serverPlayers = server.getPlayerManager().getPlayerList();
         CommandManager commandManager = server.getCommandManager();
         ServerCommandSource commandSource = server.getCommandSource();
-        Vec3d centerPos = centerPosition;
         World world = newPlayer.getWorld();
 
-        centerPos.add(0, 7, 0);
         newPlayer.changeGameMode(GameMode.SPECTATOR);
-        newPlayer.teleport(centerPos.x, centerPos.y, centerPos.z);
+        newPlayer.teleport(centerPosition.x, centerPosition.y + 7, centerPosition.z);
 
         serverPlayers.forEach((sPlayer) -> {
             if (sPlayer.interactionManager.getGameMode() == GameMode.SURVIVAL) { livingPlayers.add(sPlayer); }
@@ -57,13 +53,13 @@ public class AfterRespawn {
                 commandManager.executeWithPrefix(commandSource, gameEndTitleCommand.formatted(winnerPlayer.getName().getString()));
             }));
 
-            world.playSound(null, BlockPos.ofFloored(centerPos), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1f, 1f);
+            world.playSound(null, BlockPos.ofFloored(centerPosition), SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.BLOCKS, 1f, 1f);
 
             resetWaitedTicks = true;
             itemSpawningStatus = false;
             isGameStarted = false;
         } else {
-            world.playSound(null, BlockPos.ofFloored(centerPos), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1f, 1f);
+            world.playSound(newPlayer, BlockPos.ofFloored(centerPosition), SoundEvents.BLOCK_ANVIL_LAND, SoundCategory.BLOCKS, 1f, 1f);
         }
     }
 }
