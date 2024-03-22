@@ -14,6 +14,13 @@
 `RandomItemBattle` is a mod to help make the game more comfortable, where a random item is given out at a certain interval and players compete in an empty world with only bedrock blocks below the players and a 3x3 bedrock centre.
 
 `RandomItemBattle` only provides the gameplay part of the game, but there is a `/rib create_playground` command for creating playground in your world.
+
+## Requirements
+
+* Minecraft 1.20.x
+* [Fabric >= 0.15.4](https://fabricmc.net/use/installer/)
+* [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api/files/all?page=1&pageSize=20)
+
 ## Commands
 
 All mod's commands are subcommands of `/rib` command.
