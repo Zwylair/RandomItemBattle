@@ -1,8 +1,10 @@
 package zwylair.randomitembattle;
 
+import net.minecraft.resource.featuretoggle.FeatureFlags;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -31,12 +33,33 @@ public class RandomItemBattle implements ModInitializer {
     public static final List<Item> blocksAsItems = new ArrayList<>(Registries.BLOCK.stream()
 			.map(Block::asItem)
 			.collect(Collectors.toList()));
-    public static final List<Item> pickableItems = Stream.concat(blocksAsItems.stream(), Registries.ITEM.stream()).toList();
+	public static final List<String> restrictedItems = Arrays.stream(new String[] {
+			"minecraft:command_block",
+			"minecraft:chain_command_block",
+			"minecraft:repeating_command_block",
+			"minecraft:command_block_minecart",
+			"minecraft:air",
+			"minecraft:jigsaw",
+			"minecraft:structure_block",
+			"minecraft:structure_void",
+			"minecraft:ender_dragon_spawn_egg",
+			"minecraft:light_gray_stained_glass_pane",
+			"minecraft:enchanted_book",
+			"minecraft:sculk_shrieker"
+	}).toList();
+    public static List<Item> pickableItems = new ArrayList<>();
     public static List<Vec3d> playerPositions = new ArrayList<>();
     public static Vec3d centerPosition;
 
 	@Override
 	public void onInitialize() {
+		pickableItems = Stream.concat(blocksAsItems.stream(), Registries.ITEM.stream()).toList();
+		pickableItems.forEach((item) -> {
+			if (!item.isEnabled(FeatureFlags.DEFAULT_ENABLED_FEATURES) || restrictedItems.contains(Registries.ITEM.getId(item).toString())) {
+				pickableItems.remove(item);
+			}
+		});
+
 		Tick.register();
 		AfterRespawn.register();
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> TimeoutCommand.register(dispatcher));
