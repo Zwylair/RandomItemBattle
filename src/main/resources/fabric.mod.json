@@ -1,27 +1,34 @@
 {
-	"schemaVersion": 1,
-	"id": "randomitembattle",
-	"version": "${version}",
-	"name": "RandomItemBattle",
-	"description": "The RandomItemBattle mod adds the giving random items to players who compete in an empty world on only just a bedrock!",
-	"authors": [
-		"Zwylair"
-	],
-	"contact": {
-		"sources": "https://github.com/Zwylair/RandomItemBattle"
-	},
-	"license": "MIT",
-	"icon": "assets/randomitembattle/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"zwylair.randomitembattle.RandomItemBattle"
-		]
-	},
-	"depends": {
-		"fabricloader": ">=0.15.7",
-		"minecraft": "~1.20.4",
-		"java": ">=17",
-		"fabric-api": "*"
-	}
+  "schemaVersion": 1,
+  "id": "randomitembattle",
+  "version": "${version}",
+
+  "name": "RandomItemBattle",
+  "description": "The RandomItemBattle mod adds the giving random items to players who compete in an empty world on only just a bedrock!",
+  "authors": [
+    "Zwylair"
+  ],
+  "contact": {
+    "sources": "https://github.com/Zwylair/RandomItemBattle"
+  },
+
+  "license": "MIT",
+  "icon": "assets/randomitembattle/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "zwylair.randomitembattle.RandomItemBattle"
+      }
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "~${minecraft_version}",
+    "java": ">=17",
+    "fabric-language-kotlin": ">=${fabric_kotlin_version}"
+  }
 }
